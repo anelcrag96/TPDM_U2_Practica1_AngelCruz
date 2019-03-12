@@ -102,7 +102,7 @@ public class Proyecto {
             }
             return null;
         }
-
+        
     }//
 
     public Proyecto[] consultar(){
