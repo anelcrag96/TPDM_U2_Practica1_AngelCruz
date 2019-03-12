@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="30dp"
+    tools:context=".Main2Activity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Insertar nuevo proyecto"
+        android:textSize="33dp"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblDescripcion"
+        android:text="Descripción: "
+        android:textSize="25dp"
+        android:layout_marginTop="30dp"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtDescripcion"
+        android:hint="Descripción del proyecto"
+        android:textSize="25dp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblUbicacion"
+        android:layout_marginTop="10dp"
+        android:text="Ubicación: "
+        android:textSize="25dp"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtUbicacion"
+        android:hint="Ubicación inmueble"
+        android:textSize="25dp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblFecha"
+        android:layout_marginTop="10dp"
+        android:text="Fecha: "
+        android:textSize="25dp"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtFecha"
+        android:hint="Fecha (AAAA/MM/DD)"
+        android:textSize="25dp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblPresupuesto"
+        android:layout_marginTop="10dp"
+        android:text="Presupuesto:"
+        android:textSize="25dp"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtPresupuesto"
+        android:hint="$ 0.00"
+        android:textSize="25dp"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnInsertar"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Insertar"
+        android:textColor="#FFFFFF"
+        android:textSize="25dp"
+        android:background="@color/colorPrimaryDark"
+        />
+</LinearLayout>
