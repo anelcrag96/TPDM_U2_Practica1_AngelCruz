@@ -5,101 +5,126 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20dp"
+    android:padding="10dp"
     tools:context=".Main4Activity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Actualizar/Modificar proyecto seleccionado"
+        android:textSize="25dp"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:id="@+id/lbl__Descripcion"
         android:text="Descripcion: "
-        android:textSize="25dp"/>
+        />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/descripcion"/>
+        android:id="@+id/txt__Descripcion"
+        android:hint="Descripción proyecto"
+        />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Ubicacion: "
         android:layout_marginTop="10dp"
-        android:textSize="25dp"/>
+        android:id="@+id/lbl__Ubicacion"
+        />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ubicacion"/>
+        android:id="@+id/txt__Ubicacion"
+        android:hint="Ubicación inmueble"
+        />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Fecha: "
         android:layout_marginTop="10dp"
-        android:textSize="25dp"/>
+        android:id="@+id/lbl__Fecha"
+        />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="date"
         android:hint="AAAA/MM/DD"
-        android:id="@+id/fecha"/>
+        android:id="@+id/txt__Fecha"
+        />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Presupuesto: "
         android:layout_marginTop="10dp"
-        android:textSize="25dp"/>
+        android:id="@+id/lbl__Presupuesto"
+        />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="$ 0.00"
-        android:id="@+id/presupuesto"/>
-
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:orientation="horizontal">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#4973ce"
-            android:textColor="#FFFFFF"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
-            android:layout_marginTop="30dp"
-            android:layout_gravity="center_horizontal"
-            android:id="@+id/elimina"
-            android:layout_marginRight="30dp"
-            android:text="Eliminar"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#4973ce"
-            android:textColor="#FFFFFF"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
-            android:layout_marginTop="30dp"
-            android:layout_gravity="center_horizontal"
-            android:id="@+id/modifica"
-            android:text="Modificar"/>
-    </LinearLayout>
+        android:inputType="numberDecimal"
+        android:id="@+id/txt__Presupuesto"
+        />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#258c35"
+        android:background="@color/colorPrimaryDark"
         android:textColor="#FFFFFF"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
+        android:paddingLeft="100dp"
+        android:paddingRight="100dp"
         android:layout_gravity="center_horizontal"
-        android:id="@+id/regresa"
-        android:text="Regresar"/>
+        android:layout_marginTop="10dp"
+        android:id="@+id/btn__Actualizar"
+        android:text="Actualizar"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:layout_marginTop="10dp"
+        android:textColor="#FFFFFF"
+        android:paddingLeft="110dp"
+        android:paddingRight="110dp"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/btn__Eliminar"
+        android:text="Eliminar"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:layout_marginTop="10dp"
+        android:textColor="#FFFFFF"
+        android:paddingLeft="110dp"
+        android:paddingRight="110dp"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/btn__Regresar"
+        android:text="Regresar"
+        />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/construction"
+        android:paddingTop="10dp"
+        />
 
 </LinearLayout>

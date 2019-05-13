@@ -7,24 +7,26 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
 
-import java.util.Date;
 
 public class Proyecto {
-    String descripcion, ubicacion, fecha, error;
-    float presupuesto;
-    int id;
-    BaseDatos base;
+    private int id;
+    private String descripcion;
+    private String ubicacion;
+    private String fecha;
+    private float presupuesto;
+    private BaseDatos base;
+    private String error;
 
-    public Proyecto (int id, String d, String u, String f, float p){
-        this.id=id;
-        descripcion=d;
-        ubicacion=u;
-        fecha=f;
-        presupuesto=p;
+    public Proyecto(Activity activity){
+        base=new BaseDatos(activity,"civil",null,1);
     }
 
-    public Proyecto(Activity proyecto){
-        base=new BaseDatos(proyecto,"civil",null,1);
+    public Proyecto (int id, String des, String ubi, String fec, float pre){
+        this.id=id;
+        this.descripcion=des;
+        this.ubicacion=ubi;
+        this.fecha=fec;
+        this.presupuesto=pre;
     }
 
     public boolean insertar(Proyecto proyecto){
@@ -35,90 +37,54 @@ public class Proyecto {
             datos.put("UBICACION", proyecto.getUbicacion());
             datos.put("FECHA", proyecto.getFecha());
             datos.put("PRESUPUESTO", proyecto.getPresupuesto());
+
             long respuesta = transaccionInsertar.insert("PROYECTOS", "IDPROYECTO", datos);
             transaccionInsertar.close();
-            if (respuesta<0){//respuesta==-1
-                return false;
+            if (respuesta==-1){//respuesta==-1
+                return false;//NO SE REALIZO LA INSERCION
             }
         }
         catch (SQLiteException e){
-            Log.e("Error: ",e.getMessage());
+            error=e.getMessage();
             return false;
         }
         return true;
     }//insertar
 
-    public Proyecto consultarDescripcion(String descripcion){
-        Proyecto proyect=null;
-        try {
-            SQLiteDatabase tabla=base.getReadableDatabase();
-            String SQL="SELECT*FROM PROYECTOS WHERE DESCRIPCION=?";
-            String claves[]={descripcion};
-            Cursor c=tabla.rawQuery(SQL,claves);
-            if(c.moveToFirst()){
-                proyect=new Proyecto(c.getInt(0),c.getString(1),c.getString(2), c.getString(3),c.getFloat(4));
-            }
-            tabla.close();
-        }
-        catch (SQLiteException e){
-            return null;
-        }
-        return proyect;
-    }//consultarDescripcion
-
-    public Proyecto consultarId(Object dato){
-        Proyecto proyect=null;
-        /*try {
+    public Proyecto consultar(Object dato){
+        try{
             SQLiteDatabase transaccionConsultar=base.getReadableDatabase();
-            String SQL="SELECT*FROM PROYECTOS WHERE IDPROYECTO=?";
-            String claves[]={id};
-            Cursor c=transaccionConsultar.rawQuery(SQL,claves);
-            if(c.moveToFirst()){
-                proyect=new Proyecto(c.getInt(0),c.getString(1),c.getString(2), c.getString(3),c.getFloat(4));
+            Cursor cursor=null;
+            if (dato instanceof Integer){
+                cursor=transaccionConsultar.rawQuery("SELECT * FROM PROYECTOS WHERE IDPROYECTO=?",new String[]{Integer.parseInt(dato.toString())+""});
             }
-            tabla.close();
-        }
-        catch (SQLiteException e){
-            return null;
-        }
-        return proyect;*/
-            try{
-                SQLiteDatabase db=base.getReadableDatabase();
-                Cursor c=null;
-                if (dato instanceof Integer){
-                    c=db.rawQuery("SELECT * FROM PROYECTOS WHERE IDPROYECTO=?",new String[]{Integer.parseInt(dato.toString())+""});
-                }
-                else{
-                    c=db.rawQuery("SELECT * FROM PROYECTOS WHERE DESCRIPCION=?",new String[]{dato.toString()});
-                }
+            else{
+                cursor=transaccionConsultar.rawQuery("SELECT * FROM PROYECTOS WHERE DESCRIPCION=?",new String[]{dato.toString()});
+            }
 
-                if (c.moveToFirst()) {
-                    Proyecto proyecto = new Proyecto(c.getInt(0),c.getString(1),c.getString(2),c.getString(3),c.getFloat(4));
-                    return proyecto;
-                }
-            }catch(SQLiteException e){
-                e.printStackTrace();
-                return null;
+            if (cursor.moveToFirst()) {
+                Proyecto proyecto = new Proyecto(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getFloat(4));
+                return proyecto;
             }
+        }catch(SQLiteException e){
+            e.printStackTrace();
             return null;
         }
-        
-    }//
+        return null;
+    }//consultar
 
     public Proyecto[] consultar(){
-        Proyecto[] resultado=null;
         try {
-            SQLiteDatabase transaccionConsulta=base.getReadableDatabase();
-            String SQL="SELECT*FROM PROYECTOS";
-            Cursor c=transaccionConsulta.rawQuery(SQL,null);
-            if (c.moveToFirst()){
-                resultado=new Proyecto[c.getCount()];
+            SQLiteDatabase transaccionConsultar=base.getReadableDatabase();
+            Cursor cursor=transaccionConsultar.rawQuery("SELECT*FROM PROYECTOS",null);
+            if (cursor.moveToFirst()){
+                Proyecto[] resultado=new Proyecto[cursor.getCount()];
                 int posicion=0;
                 do {
-                    resultado[posicion]=new Proyecto(c.getInt(0),c.getString(1),c.getString(2), c.getString(3),c.getFloat(4));
+                    resultado[posicion]=new Proyecto(cursor.getInt(0),cursor.getString(1),cursor.getString(2), cursor.getString(3),cursor.getFloat(4));
                     posicion++;
                 }
-                while (c.moveToNext());
+                while (cursor.moveToNext());
                 return resultado;
             }//if
         }
@@ -126,17 +92,17 @@ public class Proyecto {
             e.printStackTrace();
             return null;
         }
-        return resultado;
+        return null;
     }//consultar
 
     public boolean eliminar(Proyecto proyecto){
         try {
             SQLiteDatabase transaccionEliminar=base.getWritableDatabase();
-            String[] datos={""+proyecto.id};
-            long resultado=transaccionEliminar.delete("PROYECTOS","IDPROYECTO=?",datos);
+
+            long resultado=transaccionEliminar.delete("PROYECTOS","IDPROYECTO=?", new String[] {""+proyecto.getId()});
             transaccionEliminar.close();
             if (resultado==0){
-                return false;
+                return false;//No se pudo eliminar
             }
         }
         catch (SQLiteException e){
@@ -153,11 +119,12 @@ public class Proyecto {
             datos.put("DESCRIPCION", proyecto.getDescripcion());
             datos.put("UBICACION", proyecto.getUbicacion());
             datos.put("FECHA", proyecto.getFecha());
-            String[] clave={""+proyecto.getId()};
+            datos.put("PRESUPUESTO",proyecto.getPresupuesto());
+            String clave[]={""+proyecto.getId()};
             long respuesta = transaccionActualizar.update("PROYECTOS", datos,"IDPROYECTO=?", clave);
             transaccionActualizar.close();
             if (respuesta<0){
-                return false;
+                return false;//No se actualizo nada
             }
         }
         catch (SQLiteException e){
